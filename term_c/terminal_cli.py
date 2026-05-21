@@ -23,6 +23,15 @@ class TerminalCLI:
         self.cyan = Fore.CYAN
         self.magenta = Fore.MAGENTA
 
+        self.colors = {
+            "green": self.green,
+            "red": self.red,
+            "yellow": self.yellow,
+            "blue": self.blue,
+            "cyan": self.cyan,
+            "magenta": self.magenta
+        }
+
         self.reset = Style.RESET_ALL
 
         # Box styles
@@ -64,6 +73,20 @@ class TerminalCLI:
             }
         }
 
+    def get_color(self, color):
+        if color is None:
+            return ""
+
+        # Nome da cor
+        if isinstance(color, str):
+            return self.colors.get(
+                color.lower(),
+                color
+            )
+
+        # Fore.GREEN etc
+        return color
+    
     def update_terminal_size(self):
         self.terminal_size = shutil.get_terminal_size(
             fallback=(80, 24)
@@ -82,6 +105,8 @@ class TerminalCLI:
 
         line = char * self.terminal_width
 
+        color = self.get_color(color)
+
         if color:
             line = color + line + self.reset
 
@@ -89,6 +114,8 @@ class TerminalCLI:
 
     def header(self, text, color=None, char="─", space=1):
         self.update_terminal_size()
+
+        color = self.get_color(color)
 
         text = f'{" " * space}{text}{" " * space}'
 
@@ -133,6 +160,8 @@ class TerminalCLI:
         bottom_left=None,
         bottom_right=None
     ):
+        color = self.get_color(color)
+
         lines = text.strip().splitlines()
 
         max_length = max(len(line) for line in lines)
