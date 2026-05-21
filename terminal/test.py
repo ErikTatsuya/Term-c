@@ -1,4 +1,4 @@
-from terminal_cli import TerminalCLI
+from terminal.terminal_cli import TerminalCLI
 
 terminal = TerminalCLI()
 
