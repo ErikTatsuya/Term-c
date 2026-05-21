@@ -21,3 +21,5 @@ terminal.box(
     color=terminal.green
 )
 ```
+
+Tem outros usos também, veja o terminal/terminal_cli.py
